@@ -1,0 +1,73 @@
+.layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #00000000;
+  }
+  
+  .mainContent {
+    flex: 1;
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mainContentCollapsed {
+    margin-left: 80px;
+  }
+  
+  .main {
+    flex: 1;
+    padding: 2rem;
+    padding-top: calc(64px + 2rem); /* Altura del header + padding superior */
+  }
+  
+  .mainContentMobile {
+    margin-left: 0;
+    padding-bottom: 60px; /* Espacio para el sidebar móvil */
+  }
+  
+  /* Estilos para dispositivos móviles */
+  @media (max-width: 767px) {
+    .mainContent {
+      margin-left: 0;
+    }
+  
+    .main {
+      padding: 1rem;
+      padding-top: calc(64px + 1rem); /* Altura del header + padding superior para móvil */
+    }
+  }
+  
+  /* Estilos para tablets en modo retrato */
+  @media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+    .mainContent {
+      margin-left: 0;
+    }
+  
+    .main {
+      padding: 1.5rem;
+      padding-top: calc(64px + 1.5rem);
+    }
+  }
+  
+  /* Estilos para tablets en modo paisaje y laptops */
+  @media (min-width: 1024px) {
+    .mainContent {
+      margin-left: 250px;
+    }
+  
+    .mainContentCollapsed {
+      margin-left: 80px;
+    }
+  }
+  
+  /* Estilos para pantallas grandes */
+  @media (min-width: 1440px) {
+    .main {
+      padding: 3rem;
+      padding-top: calc(64px + 3rem);
+    }
+  }
+  
+  

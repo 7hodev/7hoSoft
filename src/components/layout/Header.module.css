@@ -1,0 +1,217 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #1a1a1a;
+    background-color: #000000;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 250px;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+  
+  .headerCollapsed {
+    left: 80px;
+  }
+  
+  .titleSection {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .titleSection h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .subtitle {
+    color: #9ca3af;
+    font-size: 0.875rem;
+  }
+  
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .searchContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .searchInput {
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    color: white;
+    font-size: 0.875rem;
+    width: 0;
+    opacity: 0;
+    transition: width 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .searchContainer.expanded .searchInput {
+    width: 200px;
+    opacity: 1;
+  }
+  
+  .iconButton {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+  }
+  
+  .iconButton:hover {
+    background-color: #1a1a1a;
+  }
+  
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  .searchContainer .iconButton {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+  }
+  
+  .searchContainer.expanded .iconButton {
+    background-color: #1a1a1a;
+  }
+  
+  .profileContainer {
+    position: relative;
+  }
+  
+  .profileButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .profileButton:hover {
+    background-color: #1a1a1a;
+  }
+  
+  .profileImage {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .profileName {
+    font-size: 0.875rem;
+  }
+  
+  .profileMenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #1a1a1a;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+  
+  .profileMenuItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .profileMenuItem:hover {
+    background-color: #2a2a2a;
+  }
+  
+  .menuIcon {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  /* Estilos para dispositivos móviles */
+  @media (max-width: 767px) {
+    .header {
+      left: 0;
+      padding: 0.75rem 1rem;
+    }
+  
+    .titleSection h1 {
+      font-size: 1.25rem;
+    }
+  
+    .subtitle {
+      font-size: 0.75rem;
+    }
+  
+    .searchContainer.expanded .searchInput {
+      width: 150px;
+    }
+  
+    .profileButton {
+      padding: 0;
+    }
+  
+    .profileName,
+    .profileButton .icon {
+      display: none;
+    }
+  }
+  
+  /* Estilos para tablets en modo retrato */
+  @media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+    .header {
+      left: 0;
+    }
+  }
+  
+  /* Estilos para tablets en modo paisaje y laptops */
+  @media (min-width: 1024px) {
+    .header.headerCollapsed {
+      left: 80px;
+    }
+  }
+  
+  /* Estilos para pantallas grandes */
+  @media (min-width: 1440px) {
+    .header {
+      padding: 1.5rem 3rem;
+    }
+  }
+  
+  

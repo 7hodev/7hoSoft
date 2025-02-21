@@ -6,17 +6,24 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+enum Role {
+  user
+  admin
+}
  
 model User {
   id            String          @id @default(cuid())
   name          String?
   email         String          @unique
+  password      String?
   emailVerified DateTime?
   image         String?
+  role          Role?           @default(user)
   accounts      Account[]
-  sessions      Session[]
+  //sessions      Session[]
   // Optional for WebAuthn support
-  Authenticator Authenticator[]
+  //Authenticator Authenticator[]
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -42,7 +49,7 @@ model Account {
  
   @@id([provider, providerAccountId])
 }
- 
+/* 
 model Session {
   sessionToken String   @unique
   userId       String
@@ -52,7 +59,7 @@ model Session {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+ */
 model VerificationToken {
   identifier String
   token      String
@@ -60,7 +67,7 @@ model VerificationToken {
  
   @@id([identifier, token])
 }
- 
+ /*
 // Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @unique
@@ -76,3 +83,4 @@ model Authenticator {
  
   @@id([userId, credentialID])
 }
+*/

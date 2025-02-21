@@ -5,32 +5,33 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import styles from "./Sidebar.module.css"
 import { Home, DollarSign, ShoppingBag, Package, Users, Settings, ChevronLeft, ChevronRight } from "lucide-react"
+import ButtonConfig from "../config/ButtonConfig"
 
 const menuItems = [
   {
     title: "Dashboard",
     icon: <Home className={styles.menuIcon} />,
-    path: "/",
+    path: "/user",
   },
   {
     title: "Ventas",
     icon: <DollarSign className={styles.menuIcon} />,
-    path: "/sales",
+    path: "/user/sales",
   },
   {
     title: "Mercado",
     icon: <ShoppingBag className={styles.menuIcon} />,
-    path: "/market",
+    path: "/user/market",
   },
   {
     title: "Inventario",
     icon: <Package className={styles.menuIcon} />,
-    path: "/inventory",
+    path: "/user/inventory",
   },
   {
     title: "Personal",
     icon: <Users className={styles.menuIcon} />,
-    path: "/personal",
+    path: "/user/personal",
   },
 ]
 
@@ -70,13 +71,7 @@ export default function Sidebar({ collapsed, onCollapse }) {
         </div>
         {!isMobile && (
           <div className={styles.bottomMenu}>
-            <Link
-              href="/configuracion"
-              className={`${styles.menuItem} ${pathname === "/configuracion" ? styles.active : ""}`}
-            >
-              <Settings className={styles.menuIcon} />
-              <span className={styles.menuText}>Configuración</span>
-            </Link>
+            <ButtonConfig />
           </div>
         )}
       </nav>

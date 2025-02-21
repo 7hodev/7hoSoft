@@ -1,17 +1,37 @@
-"use client"
+"use client";
 
-import { loginSchema } from "@/lib/zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { LockKeyhole, Mail } from "lucide-react"
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { loginSchema } from "@/lib/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { LockKeyhole, Mail } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { loginAction } from "@/actions/auth-action"
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { loginAction } from "@/actions/auth-action";
 
 const LoginForm = () => {
+  const [error, setError] = useState(null);
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -19,12 +39,18 @@ const LoginForm = () => {
       email: "",
       password: "",
     },
-  })
+  });
 
   // 2. Define a submit handler.
   async function onSubmit(values) {
-    const response = await loginAction(values)
-    console.log(response)
+    startTransition(async () => {
+      const response = await loginAction(values);
+      if (response.error) {
+        setError(response.error);
+      } else {
+        router.push("/user");
+      }
+    });
   }
 
   return (
@@ -32,8 +58,12 @@ const LoginForm = () => {
       <div className="w-full max-w-md p-4 md:p-0">
         <Card className="backdrop-blur-sm bg-white/90 dark:bg-gray-950/90">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
-            <CardDescription className="text-center">Ingresa tus credenciales para iniciar sesión</CardDescription>
+            <CardTitle className="text-2xl font-bold text-center">
+              Login
+            </CardTitle>
+            <CardDescription className="text-center">
+              Ingresa tus credenciales para iniciar sesión
+            </CardDescription>
           </CardHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -47,7 +77,12 @@ const LoginForm = () => {
                       <div className="relative">
                         <Mail className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
                         <FormControl>
-                          <Input placeholder="email" type="email" className="pl-10" {...field} />
+                          <Input
+                            placeholder="email"
+                            type="email"
+                            className="pl-10"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </div>
@@ -63,21 +98,32 @@ const LoginForm = () => {
                       <div className="relative">
                         <LockKeyhole className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
                         <FormControl>
-                          <Input placeholder="password" type="password" className="pl-10" {...field} />
+                          <Input
+                            placeholder="password"
+                            type="password"
+                            className="pl-10"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </div>
                     </FormItem>
                   )}
                 />
+                {
+                  error && <FormMessage className="text-sm text-error">{error}</FormMessage>
+                }
               </CardContent>
               <CardFooter className="flex flex-col space-y-4">
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" disabled={isPending}>
                   Submit
                 </Button>
                 <div className="text-sm text-center text-muted-foreground">
                   ¿No tienes una cuenta?{" "}
-                  <a href="#" className="underline underline-offset-4 hover:text-primary">
+                  <a
+                    href="#"
+                    className="underline underline-offset-4 hover:text-primary"
+                  >
                     Regístrate
                   </a>
                 </div>
@@ -87,8 +133,7 @@ const LoginForm = () => {
         </Card>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginForm
-
+export default LoginForm;

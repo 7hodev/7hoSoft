@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 import RootLayout from "../../RootLayout";
  
-export default async function AdminLayout({ children }) {
+export default async function UserLayout({ children }) {
   const session = await auth()
  
   if (!session) {

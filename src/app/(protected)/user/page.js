@@ -1,7 +1,7 @@
 import styles from "./styles.module.css"
 import { ArrowUpRight, Clock, Package, DollarSign } from "lucide-react"
 
-export default function Dashboard() {
+export default function UserPage() {
   const stats = [
     {
       title: "Ventas Totales",

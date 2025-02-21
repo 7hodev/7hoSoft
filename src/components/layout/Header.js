@@ -4,16 +4,17 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import styles from "./Header.module.css";
-import { Search, Bell, ChevronDown, Settings, LogOut } from "lucide-react";
+import { Search, Bell, ChevronDown, Settings } from "lucide-react";
 import LogoutButton from "@/components/auth/logout-button";
+import ButtonConfig from "../config/ButtonConfig";
+import ButtonPerfilConfig from "../config/ButtonPerfilConfig";
 
 const routeNames = {
   "/": "Dashboard",
-  "/sales": "Sales",
+  "/sales": "Ventas",
   "/market": "Mercado",
-  "/inventario": "Inventario",
+  "/inventory": "Inventario",
   "/personal": "Personal",
-  "/configuracion": "Configuración",
 };
 
 export default function Header({ collapsed, isMobileSidebar, currentPath }) {
@@ -42,9 +43,7 @@ export default function Header({ collapsed, isMobileSidebar, currentPath }) {
   };
 
   const handleProfileClick = () => {
-    if (isMobileSidebar) {
-      router.push("/configuracion");
-    } else {
+    if (!isMobileSidebar) {
       setIsProfileMenuOpen(!isProfileMenuOpen);
     }
   };
@@ -83,31 +82,27 @@ export default function Header({ collapsed, isMobileSidebar, currentPath }) {
         </button>
         <div className={styles.profileContainer} ref={profileMenuRef}>
           <button className={styles.profileButton} onClick={handleProfileClick}>
-            <img
-              src="/foto-de-perfil.png"
-              alt="Perfil"
-              className={styles.profileImage}
-            />
             {!isMobileSidebar && (
               <>
+                <img
+                  src="/foto-de-perfil.png"
+                  alt="Perfil"
+                  className={styles.profileImage}
+                />
                 <span className={styles.profileName}>Usuario</span>
                 <ChevronDown className={styles.icon} />
+              </>
+            )}
+            {isMobileSidebar && (
+              <>
+                <ButtonPerfilConfig />
               </>
             )}
           </button>
           {!isMobileSidebar && isProfileMenuOpen && (
             <div className={styles.profileMenu}>
-              <button
-                className={styles.profileMenuItem}
-                onClick={() => router.push("/configuracion")}
-              >
-                <Settings className={styles.menuIcon} />
-                <span>Configuración</span>
-              </button>
-              <LogoutButton>
-                <LogOut className={styles.menuIcon} />
-                <span>Cerrar sesión</span>
-              </LogoutButton>
+              <ButtonConfig />
+              <LogoutButton />
             </div>
           )}
         </div>
